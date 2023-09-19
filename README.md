@@ -43,6 +43,9 @@ ansible all -m dnf -a update_cache=true
 
 # install package
 ansible all -m dnf -a name=[package_name] --become --ask-become-pass
+
+# check the hosts info
+ansible all -m setup -a ["filter=[condition]"]
 ```
 
 ## Playbook
@@ -56,4 +59,6 @@ example:
   -name: [describe this operation]
     [operation_name]:
       [option_name]: [option_value]
+   when: [item_name] == [value] and [another condition]
+   when: [item_name] in ["","",...]
 ```

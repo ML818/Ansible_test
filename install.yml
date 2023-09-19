@@ -5,8 +5,16 @@
   - name: update repository
     dnf:
       update_cache: true
+    when: ansible_distribution in ["Fedora", "Centos", "Rocky"]
 
   - name: install httpd package
     dnf:
       name: httpd
       state: latest
+    when: ansible_distribution in ["Fedora", "Centos", "Rocky"]
+
+  - name: install apache package
+    apt:
+      name: apache2
+      state: latest
+    when: ansible_distribution in ["Debian", "Ubuntu"]
