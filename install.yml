@@ -2,19 +2,21 @@
   become: true
   tasks:
 
-  - name: update repository
-    dnf:
-      update_cache: true
-    when: ansible_distribution in ["Fedora", "Centos", "Rocky"]
 
-  - name: install httpd package
+  - name: install httpd and php package
     dnf:
-      name: httpd
+      name: 
+        - httpd
+        - php
       state: latest
+      update_cache: true
     when: ansible_distribution in ["Fedora", "Centos", "Rocky"]
 
   - name: install apache package
     apt:
-      name: apache2
+      name: 
+        - apache2
+        - php
       state: latest
+      update_cache: true
     when: ansible_distribution in ["Debian", "Ubuntu"]

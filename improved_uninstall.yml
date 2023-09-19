@@ -1,0 +1,12 @@
+- hosts: all
+  become: true
+  tasks:
+
+
+  - name: uninstall apache and php package
+    package:
+      name: 
+        - "{{ apache_package }}"
+        - "{{ php_package }}"
+      state: absent
+      update_cache: true
