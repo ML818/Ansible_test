@@ -62,5 +62,5 @@ example:
    when: [item_name] == [value] and [another condition]
    when: [item_name] in ["","",...]
 ```
-- ** In inventory file, things after host are parameters, which can use in playbook.yml by {{ [parameter] }}. more details see improved\_install.yml or improved\_uninstall.yml. **
-- package is a genetic package manager for most of distro package managers, like apt, yum, dnf and forth.
+- In `inventory` file, things after host are parameters, which can use in playbook.yml by `{{ [parameter] }}`. more details see `improved\_install.yml` or `improved\_uninstall.yml`. 
+- `package` is a genetic package manager for most of distro package managers, like `apt`, `yum`, `dnf` and forth.
