@@ -1,9 +1,9 @@
 # Ansible_test
 **Testing**
-with three vms in multipass
+with three virtual machines( Rocky9.2) in VMware17
 
 
-```bash
+```shell
 
 # without configuration, check servers connection
 ansible all --key-file ~/.ssh/ansible -i inventory -m ping
@@ -37,4 +37,23 @@ ubuntu@vm03 | CHANGED | rc=0 >>
                total        used        free      shared  buff/cache   available
 Mem:            1898         204        1148           0         545        1539
 Swap:              0           0           0
+
+# update
+ansible all -m dnf -a update_cache=true
+
+# install package
+ansible all -m dnf -a name=[package_name] --become --ask-become-pass
+```
+
+## Playbook
+
+example:
+```shell
+- hosts:
+  become: [true/false]
+  tasks:
+  
+  -name: [describe this operation]
+    [operation_name]:
+      [option_name]: [option_value]
 ```
