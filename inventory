@@ -6,3 +6,6 @@ rocky03 apache_package=httpd php_package=php
 
 [file_servers]
 rocky04 apache_package=httpd php_package=php
+
+[workstations]
+rocky01
