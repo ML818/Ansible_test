@@ -7,6 +7,7 @@ with three virtual machines( Rocky9.2) in VMware17
 - parameters
 - groups
 
+## Operations by Commands
 
 ```shell
 
@@ -62,6 +63,7 @@ example:
   tasks:
   
   -name: [describe this operation]
+   tags: [...]
     [operation_name]:
       [option_name]: [option_value]
    when: [item_name] == [value] and [another condition]
@@ -70,3 +72,5 @@ example:
 - In `inventory` file, things after host are parameters, which can use in playbook.yml by `{{ [parameter] }}`. more details see `improved\_install.yml` or `improved\_uninstall.yml`. 
 - `package` is a genetic package manager for most of distro package managers, like `apt`, `yum`, `dnf` and forth.
 - Targeting specific nodes by groups names which setting in `inventory`.
+- `tags` which always behind name of tasks
+	- check more details about tags by `ansible-playbook --list-tags some.yml`.
