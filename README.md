@@ -2,6 +2,11 @@
 **Testing**
 with three virtual machines( Rocky9.2) in VMware17
 
+## inventory
+- hosts
+- parameters
+- groups
+
 
 ```shell
 
@@ -52,7 +57,7 @@ ansible all -m setup -a ["filter=[condition]"]
 
 example:
 ```shell
-- hosts:
+- hosts: [all / group_name]
   become: [true/false]
   tasks:
   
@@ -64,3 +69,4 @@ example:
 ```
 - In `inventory` file, things after host are parameters, which can use in playbook.yml by `{{ [parameter] }}`. more details see `improved\_install.yml` or `improved\_uninstall.yml`. 
 - `package` is a genetic package manager for most of distro package managers, like `apt`, `yum`, `dnf` and forth.
+- Targeting specific nodes by groups names which setting in `inventory`.

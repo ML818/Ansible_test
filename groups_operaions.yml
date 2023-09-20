@@ -1,0 +1,31 @@
+- hosts: web_servers
+  become: true
+  pre_tasks:
+
+  - name: install update
+    dnf:
+      update_only: true
+      update_cache: true
+    when: ansible_distribution in ["Fedora", "Centos", "Rocky"]
+
+- hosts: db_servers
+  become: true
+  pre_tasks:
+
+  - name: install mariadb
+    dnf:
+      name: mariadb
+      state: absent
+      update_cache: true
+    when: ansible_distribution in ["Fedora", "Centos", "Rocky"]
+
+- hosts: file_servers
+  become: true
+  tasks:
+
+  - name: install samba
+    dnf:
+      name: samba
+      state: present
+      update_cache: true
+    when: ansible_distribution in ["Fedora", "Centos", "Rocky"]
