@@ -74,3 +74,33 @@ example:
 - Targeting specific nodes by groups names which setting in `inventory`.
 - `tags` which always behind name of tasks
 	- check more details about tags by `ansible-playbook --list-tags some.yml`.
+
+### Modules
+
+#### service
+** change specific service status **
+
+```shell
+- name: [describes]
+  tags: ...
+  service:
+    name: [service_name]
+    state: [started / restarted]
+    enabled: true
+  when: [conditions]
+```
+
+#### lineinfile
+** modify content in specific file at specific line number **
+
+```shell
+- name: ...
+  tags: ...
+  lineinfile:
+    path: [where is the file you want to change]
+    regexp: '[regular expression]'
+    line: [changed content]
+  when: ...
+  register: [mark_name]
+```
+We can use the mark\_name in when statement, when it changed. Example is `service.yml`. 
