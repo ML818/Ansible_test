@@ -1,0 +1,7 @@
+- name: install mariadb server package
+  tags: rocky,db,mariadb
+  package:
+    name: mariadb
+    state: present
+    update_cache: true
+  when: ansible_distribution == "Rocky"

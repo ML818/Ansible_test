@@ -1,0 +1,31 @@
+- name: install httpd package
+  tags: apache,httpd,php,rocky
+  package:
+    name:
+      - httpd
+      - php
+    state: present
+  when: ansible_distribution == "Rocky"
+
+- name: start httpd service
+  tags: httpd
+  service:
+    name: httpd
+    state: started
+    enabled: true
+  when: ansible_distribution == "Rocky"
+    
+- name: copy default html file for site
+  tags: apache,httpd
+  copy:
+    src: default.html
+    dest: /var/www/html/index.html
+    owner: root
+    group: root
+    mode: 0644
+
+- name: restart httpd service
+  tags: httpd
+  service:
+    name: httpd
+    state: restarted
