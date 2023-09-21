@@ -94,7 +94,7 @@ example:
 ### Modules
 
 #### service
-** change specific service status **
+> change specific service status
 
 ```shell
 - name: [describes]
@@ -107,7 +107,7 @@ example:
 ```
 
 #### lineinfile
-** modify content in specific file at specific line number **
+> modify content in specific file at specific line number
 
 ```shell
 - name: ...
@@ -122,7 +122,7 @@ example:
 We can use the mark\_name in when statement, when it changed. Example is `service.yml`. 
 
 #### user
-**create user**
+> create user
 ```
 user:
   name: [user\_name]
@@ -130,7 +130,7 @@ user:
 ```
 
 #### authorized\_key
-**add authorized key to specific user**
+> add authorized key to specific user
 ```
 authorized_key:
   user: [user_name]
