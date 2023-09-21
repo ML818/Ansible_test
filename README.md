@@ -72,7 +72,7 @@ ansible all -m setup -a ["filter=[condition]"]
 ## Playbook
 
 example:
-```shell
+```yaml
 - hosts: [all / group_name]
   become: [true/false]
   tasks:
@@ -96,7 +96,7 @@ example:
 #### service
 > change specific service status
 
-```shell
+```yaml
 - name: [describes]
   tags: ...
   service:
@@ -109,7 +109,7 @@ example:
 #### lineinfile
 > modify content in specific file at specific line number
 
-```shell
+```yaml
 - name: ...
   tags: ...
   lineinfile:
@@ -123,7 +123,7 @@ We can use the mark\_name in when statement, when it changed. Example is `servic
 
 #### user
 > create user
-```
+```yaml
 user:
   name: [user\_name]
   groups: [group\_name]
@@ -131,8 +131,29 @@ user:
 
 #### authorized\_key
 > add authorized key to specific user
-```
+```yaml
 authorized_key:
   user: [user_name]
   key: [public_key_value]
+```
+
+### Some directories
+#### files
+> The path is `.` when operations commands in yaml file
+#### roles
+> Simplified yaml file by specific groups, write details of tasks in `group\_name/tasks/main.yml`. function of `files` directory is the same as former.  
+`main.yml`
+```yaml
+- name: ...
+  tags: ...
+    [module_name]:
+      ...
+```
+
+`playbook.yml`
+```yaml
+- hosts: [group_name]
+  become: ...
+  roles:
+    - [group_name]
 ```
