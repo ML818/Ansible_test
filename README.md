@@ -6,6 +6,21 @@ with three virtual machines( Rocky9.2) in VMware17
 - hosts
 - parameters
 - groups
+```shell
+[group_name]
+host_name parameters...
+...
+```
+## ansible.cfg
+```
+[defaults]
+inventory = inventory
+private_key_file = [path_to_ansible_private_key]
+remote_user = [user_name]
+```
+- `inventory`: hosts list
+- `private\_key\_file`: connect to hosts by it
+- `remote\_user`: execute commands by the user defaultly
 
 ## Operations by Commands
 
@@ -64,11 +79,12 @@ example:
   
   -name: [describe this operation]
    tags: [...]
-    [operation_name]:
+    [module_name]:
       [option_name]: [option_value]
    when: [item_name] == [value] and [another condition]
    when: [item_name] in ["","",...]
 ```
+- `become` is for sudo
 - In `inventory` file, things after host are parameters, which can use in playbook.yml by `{{ [parameter] }}`. more details see `improved\_install.yml` or `improved\_uninstall.yml`. 
 - `package` is a genetic package manager for most of distro package managers, like `apt`, `yum`, `dnf` and forth.
 - Targeting specific nodes by groups names which setting in `inventory`.
@@ -104,3 +120,19 @@ example:
   register: [mark_name]
 ```
 We can use the mark\_name in when statement, when it changed. Example is `service.yml`. 
+
+#### user
+**create user**
+```
+user:
+  name: [user\_name]
+  groups: [group\_name]
+```
+
+#### authorized\_key
+**add authorized key to specific user**
+```
+authorized_key:
+  user: [user_name]
+  key: [public_key_value]
+```
