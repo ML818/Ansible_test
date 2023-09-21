@@ -1,0 +1,28 @@
+- hosts: web_servers
+  become: true
+  tasks:
+
+  - name: start httpd service
+    tags: httpd,apache
+    service:
+      name: httpd
+      state: started
+      enabled: true
+    when: ansible_distribution == "Rocky"
+
+  - name: change e-mail address for admin
+    tags: httpd,apache
+    lineinfile:
+      path: /etc/httpd/conf/httpd.conf
+      regexp: '^ServerAdmin'
+      line: ServerAdmin somebody@somewhere.com
+    when: ansible_distribution == "Rocky"
+    register: httpd
+
+  - name: restart httpd
+    tags: httpd, apache
+    service:
+      name: httpd
+      state: restarted
+    when: httpd.changed
+
