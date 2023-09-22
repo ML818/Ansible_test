@@ -1,3 +1,6 @@
 apache_package_name: httpd
 apache_service: httpd
 php_package_name: php  
+
+ssh_users: "mask07 simone"
+ssh_templates_file: sshd_config_rocky.j2

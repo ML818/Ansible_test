@@ -4,3 +4,13 @@
   authorized_key:
     user: simone
     key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCyBLBXJudfktkIjoC57cwY5WOF4HCEBvxfLySXdZh3ZPO3Y+gcURZaAduKOf9kxrdbLY7Iz6lHo/X9Sr3ugUnvRquVeZALSqU/dC6rHgRftnWK5EUNOiyBnK8jREywvBQuWPgCgGAc/mjqzXOO7qyqceEx6T3PQgDaoD/aZWu1ONg2ImA/6A372V27Ye3/WxPBz5elHjJ8pZWkoMddN50zUfpcN06TcnXINKYVh6fI2bWd7+rXdJg35P03UU4hXnXUqOOCQ74FnLhZ5VWfYfG04Y0fbby+tVXeyxxHZtt3d48iPOEFDGbXoP7f3WKjN7Bng+eDpbFeHTaHcOkd7M1np2cWgnmo5+dtheXSCR8eMTi7HScGmoMAHtgfN6VteX9ol6SYWvy2wllnI+3zOa+98AiKhABTyLvJHYFZQUGvV9hXrcIVKftGISPiLvhIbkcEj732X4F6LcADxdfuDhdNCsOmU+knXJADZzE9vE9Nv9SY62kY3LMiE/6f7mMTW6M= ansible
+
+- name: generate sshd_config file from templates
+  tags: ssh
+  template:
+    src: "{{ ssh_templates_file }}"
+    dest: /etc/ssh/sshd_config
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart_sshd
