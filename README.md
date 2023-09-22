@@ -83,6 +83,7 @@ example:
       [option_name]: [option_value]
    when: [item_name] == [value] and [another condition]
    when: [item_name] in ["","",...]
+   notify: [name in handler]
 ```
 - `become` is for sudo
 - In `inventory` file, things after host are parameters, which can use in playbook.yml by `{{ [parameter] }}`. more details see `improved\_install.yml` or `improved\_uninstall.yml`. 
@@ -90,7 +91,7 @@ example:
 - Targeting specific nodes by groups names which setting in `inventory`.
 - `tags` which always behind name of tasks
 	- check more details about tags by `ansible-playbook --list-tags some.yml`.
-
+- `notify`: if something changed, it will execute.
 ### Modules
 
 #### service
@@ -140,9 +141,9 @@ authorized_key:
 ### Some directories
 #### files
 > The path is `.` when operations commands in yaml file
-#### roles
-> Simplified yaml file by specific groups, write details of tasks in `group\_name/tasks/main.yml`. function of `files` directory is the same as former.  
 
+#### roles
+> Simplified yaml file by specific groups, write details of tasks in `[group_name]/tasks/main.yml` in `roles`. function of `files` directory is the same as former.  
 
 `main.yml`
 ```yaml
@@ -159,3 +160,21 @@ authorized_key:
   roles:
     - [group_name]
 ```
+
+#### host\_vars
+> it stores parameters for specific hosts, one host on one file which is `yaml`. Don't need put parameters in `inventory`.
+> Details in `host_vars` in this repository.
+
+#### handler
+- its position is `roles/[group_name]/handlers`
+- a yaml file which name is `main.yml` in `handlers`
+- `main.yml`	
+  ```yaml
+  - name: ...
+    tags: ...
+      [module_name]:
+        ...
+  ```
+- it toggles by `notify: [name]`, when something changed. Example is in `roles/web_servers/tasks/main.yml`
+  - `[name]`: the name is in `main.yml` : `-name: [this_content]`
+
