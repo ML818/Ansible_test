@@ -94,6 +94,40 @@ example:
 - `notify`: if something changed, it will execute.
 ### Modules
 
+#### copy
+> copy specific file to destination
+```yaml
+copy:
+  src: [path to file]
+  dest: [destination path]
+  owner: ...
+  group: ...
+  mode: ...
+```
+#### package
+> it can replace `apt` or `dnf` and so forth.
+```yaml
+package:
+  name: [app_name]
+  state: [present / absent]
+  update_cache: [yes / no]
+```
+- `present` : install
+- `absent` : uninstall
+- `update_cache` : update package management repository.
+
+#### unarchive
+> terraform installation example
+```yaml
+unarchive:
+  src: https://releases.hashicorp.com/terraform/1.5.7/terraform_1.5.7_linux_386.zip
+  dest: /usr/local/bin
+  remote_src: true
+  mode: 0755
+  owner: root
+  group: root
+```
+
 #### service
 > change specific service status
 
@@ -120,7 +154,7 @@ example:
   when: ...
   register: [mark_name]
 ```
-We can use the mark\_name in when statement, when it changed. Example is `service.yml`. 
+We can use the `mark_name` in `when` statement, when it changed. Example is `service.yml`. 
 
 #### user
 > create user
@@ -137,6 +171,18 @@ authorized_key:
   user: [user_name]
   key: [public_key_value]
 ```
+#### template
+> ssh configuration template example
+```yaml
+template:
+  src: "{{ ssh_templates_file }}"
+  dest: /etc/ssh/sshd_config
+  owner: root
+  group: root
+  mode: 0644
+notify: restart_sshd
+```
+
 
 ### Some directories
 #### files
@@ -178,3 +224,8 @@ authorized_key:
 - it toggles by `notify: [name]`, when something changed. Example is in `roles/web_servers/tasks/main.yml`
   - `[name]`: the name is in `main.yml` : `-name: [this_content]`
 
+#### templates
+- its position is `roles/[group_name]/templates`
+- it store specific configuration template files
+- it works with module `template`, and content of `src` is here
+- its path is the same as `files`
