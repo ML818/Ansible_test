@@ -142,6 +142,8 @@ authorized_key:
 > The path is `.` when operations commands in yaml file
 #### roles
 > Simplified yaml file by specific groups, write details of tasks in `group\_name/tasks/main.yml`. function of `files` directory is the same as former.  
+
+
 `main.yml`
 ```yaml
 - name: ...

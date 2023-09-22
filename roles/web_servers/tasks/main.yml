@@ -2,15 +2,15 @@
   tags: apache,httpd,php,rocky
   package:
     name:
-      - httpd
-      - php
+      - "{{ apache_package_name }}"
+      - "{{ php_package_name }}"
     state: present
   when: ansible_distribution == "Rocky"
 
 - name: start httpd service
   tags: httpd
   service:
-    name: httpd
+    name: "{{ apache_service }}"
     state: started
     enabled: true
   when: ansible_distribution == "Rocky"
@@ -23,9 +23,13 @@
     owner: root
     group: root
     mode: 0644
-
-- name: restart httpd service
+    
+- name: change email address for admin
   tags: httpd
-  service:
-    name: httpd
-    state: restarted
+  lineinfile:
+    path: /etc/httpd/conf/httpd.conf
+    regexp: '^ServerAdmin'
+    line: ServerAdmin somebody@somewhere.xyz
+  when: ansible_distribution == "Rocky"
+  notify: restart_apache
+

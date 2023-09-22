@@ -1,11 +1,11 @@
 [web_servers]
-rocky02 apache_package=httpd php_package=php
+rocky02
 
 [db_servers]
-rocky03 apache_package=httpd php_package=php
+rocky03
 
 [file_servers]
-rocky04 apache_package=httpd php_package=php
+rocky04
 
 [workstations]
 rocky01
